@@ -1,0 +1,23 @@
+     <!DOCTYPE html>
+     <html lang="en">
+     <head>
+         <script src="../vue.js"></script>
+         <title>Document</title>
+     </head>
+     <body>
+         <div id="app">
+                <input type="text" v-model="name">
+                <p>{{name}}</p>
+         </div>
+     </body>
+     <script>
+         new Vue({
+            el:'#app',
+            data:{
+                name:'Max'
+            },
+            methods:{
+            }
+        });
+     </script>
+     </html>

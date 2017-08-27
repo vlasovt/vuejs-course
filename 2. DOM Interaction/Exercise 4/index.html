@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+  <style>
+    #effect {
+      width: 100px;
+      height: 100px;
+      border: 1px solid black;
+    }
+
+    .highlight {
+      margin-top: 10px;
+      background-color: red;
+      width: 200px !important;
+    }
+
+    .shrink {
+      margin-top: 10px;
+      background-color: gray;
+      width: 50px !important;
+    }
+
+    .green{
+      background-color: green;
+    }
+
+    .big{
+      margin-top: 10px;
+      margin-bottom: 10px;
+      width:100px;
+      height:50px;
+    }
+
+    .short{
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: blue;
+      width:100px;
+      height:50px;
+    }
+
+    .tall{
+      margin-top: 10px;
+      margin-bottom: 10px;
+      background-color: blue;
+      width:100px;
+      height:150px;
+    }
+
+    .has-border{
+      border: 3px solid red;
+    }
+    
+  </style>
+</head>
+
+<body>
+  <div id="exercise">
+    <div>
+      <button @click="startEffect">Start Effect</button>
+      <div id="effect" :class="effect"></div>
+    </div>
+    <div :class="['green', 'big']"> I got no class :(</div>
+    <div>
+      <input type="text" v-model="stature">
+      <div :class="stature"></div>
+    </div>
+    <div>
+      <input type="text" v-model="stature">
+      <input type="text" v-model="hasBorders">
+      <div :class="[stature, {'has-border': hasBorders}]"></div>
+    </div>
+    <div>
+      <input type="text" v-model="color">
+      <div class="big has-border" :style="{backgroundColor: color}"></div>
+    </div>
+    <div>
+      <button v-on:click="startProgress">Start Progress</button>
+      <div :style="{height: '50px', marginTop: '10px', backgroundColor: color, width: progress + 'px'}"></div>
+    </div>
+  </div>
+</body>
+<script>
+  new Vue({
+    el: '#exercise',
+    data: {
+      highlightObject: true,
+      stature: 'short',
+      hasBorders: false,
+      color: 'orange',
+      progress: 10
+    },
+    computed:{
+      effect: function(){
+        return {
+          highlight: this.highlightObject,
+          shrink: !this.highlightObject
+        };
+      }
+    },
+    methods: {
+      startEffect: function () {
+        var vm = this;
+        setInterval(function(){
+          vm.highlightObject = !vm.highlightObject;
+        }, 2000);
+      },
+      startProgress: function () {
+        var vm = this;
+        setInterval(function(){
+          if(vm.progress < 250)
+          vm.progress += 10;
+        }, 1000);
+      }
+    }
+  });
+
+</script>
+</html>

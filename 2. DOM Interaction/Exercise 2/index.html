@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://npmcdn.com/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="exercise">
+        <div>
+            <button v-on:click="showAlert">Show Alert</button>
+        </div>
+        <div>
+            <input v-on:keydown="storeInputValue" type="text">
+            <p>{{ value }}</p>
+        </div>
+        <div>
+            <input v-on:keydown.enter="storeInputValue"  type="text">
+            <p>{{ value }}</p>
+        </div>
+    </div>
+</body>
+<script >
+    new Vue({
+        el: '#exercise',
+        data: {
+            value: ''
+        },
+        methods:{
+            showAlert: function(){
+                alert('Alert!');
+            },
+            storeInputValue: function(event){
+                this.value = event.target.value;
+            }
+        }
+    });
+</script>
+</html>
+
+
+

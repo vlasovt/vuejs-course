@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script src="../vue.js"></script>
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="app">
+        <button v-on:click="addCount(2, $event)">Click me</button>
+        <button v-on:click="counter+=2">Click me</button>
+        <p>{{counter}}</p>
+        <p>{{counter > 10? counter + ' is greater than 10': counter + ' is smaller than 10'}}</p>
+        <p v-on:mousemove="updateCoordinates">
+            Coordinates: {{x}} / {{y}} - <span v-on:mousemove.stop="">DEAD SPOT</span>
+        </p>
+        <!-- .enter .stop - modifiers-->
+        <input v-on:keyup.enter="alertMe" type="text">
+    </div>
+</body>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            counter: 0,
+            x: 0,
+            y: 0
+        },
+        methods: {
+            addCount: function (step, event) {
+                this.counter += step;
+            },
+            updateCoordinates: function (event) {
+                this.x = event.clientX;
+                this.y = event.clientY;
+            },
+            dummy: function (event) {
+                event.stopPropagation();
+            },
+            alertMe: function () {
+                alert('Alert!');
+            }
+        }
+    });
+</script>
+</html>
