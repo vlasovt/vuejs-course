@@ -17,29 +17,16 @@ new Vue({
             this.gameOver =  false;
             this.log = [];
         },
-        attack:function(isSpecial){
-            var monsterHit = Math.floor(Math.random() * 10);
-            var playerHit = Math.floor(Math.random() * 10) + 1;
+        attack:function(){
+            var playerHit = this.calculateDamage(12, 5);
 
-            if(isSpecial){
-                playerHit += 5;
-            }
+            if(!this.checkWin()){
+                var monsterHit = this.calculateDamage(3, 10);
+                this.checkLoose();
+            }   
+        },
+        specialAttack: function(){
 
-            if((this.playerHealth - monsterHit) > 0 ){
-                this.playerHealth -= monsterHit;
-                this.logAction('monster', monsterHit);
-            }
-            else{
-                this.stopGame(false);
-            }
-
-            if((this.monsterHealth - playerHit) > 0 ){
-                this.monsterHealth -= playerHit;
-                this.logAction('player', playerHit);
-            }
-            else{
-                this.stopGame(true);
-            }
         },
         heal:function(){
             var healScore = Math.floor(Math.random() * 10);
@@ -66,6 +53,30 @@ new Vue({
                 {type:type, 
                 message: type + ': ' + score
                 });
+        },
+        calculateDamage: function(min, max){
+            return Math.max(Math.floor(Math.random() * max) + 1, min);
+        },
+        checkWin: function(){       
+            if((this.monsterHealth - playerHit) > 0 ){
+                this.monsterHealth -= playerHit;
+                this.logAction('player', playerHit);
+            }
+            else{
+                this.monsterHealth = 0;
+                this.stopGame(true);
+                return true;
+            }
+        },
+        checkLoose: function(){  
+            if((this.playerHealth - monsterHit) > 0 ){
+                this.playerHealth -= monsterHit;
+                this.logAction('monster', monsterHit);
+            }
+            else{
+                this.playerHealth = 0;
+                this.stopGame(false);
+            }
         }
     }
 }

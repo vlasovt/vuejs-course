@@ -50,7 +50,7 @@
             <button id="give-up" @click="giveUp()">GIVE UP</button>
         </div>
     </section>
-    <section v-if="gameInProgress" class="row log">
+    <section v-if="log.length > 0" class="row log">
         <div class="small-12 columns">
             <ul>
                 <li :style="{backgroundColor: info.type === 'monster'? 'red': 'green', color: 'white'}" v-for="info in log">
