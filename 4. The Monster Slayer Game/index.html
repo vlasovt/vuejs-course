@@ -19,12 +19,7 @@
                 <h1 v-else class="text-center">YOU LOOSE</h1>
             </div>
     </section>
-    <section v-if="!gameInProgress | gameOver" class="row controls">
-        <div class="small-12 columns">
-            <button id="start-game" @click="startNewGame()">START NEW GAME</button>
-        </div>
-    </section>
-    <section v-if="gameInProgress" class="row">
+    <section class="row">
         <div class="small-6 columns">
             <h1 class="text-center">YOU</h1>
             <div class="healthbar">
@@ -40,6 +35,11 @@
                     {{monsterHealth}}
                 </div>
             </div>
+        </div>
+    </section>
+    <section v-if="!gameInProgress | gameOver" class="row controls">
+        <div class="small-12 columns">
+            <button id="start-game" @click="startNewGame()">START NEW GAME</button>
         </div>
     </section>
     <section v-if="gameInProgress" class="row controls">
