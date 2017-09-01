@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <script src="https://unpkg.com/vue/dist/vue.js"></script>
+  <title>Vue instances</title>
+</head>
+<body>
+  <div id="app1">
+    <h1 ref="heading">{{ title }}</h1>
+    <button v-on:click="show">Show Paragraph</button>
+    <p v-if="showParagraph">This is not always visible</p>
+  </div>
+  <div id="app2">
+    <h1 ref="heading">{{ title }}</h1>
+    <button v-on:click="onChange">Change something in Vue 1</button>
+    <p v-if="showParagraph">This is not always visible</p>
+  </div>
+</body>
+<script>
+  
+  var data = {
+    title: 'The VueJS Instance',
+    showParagraph: false
+  };
+
+  var vm1 = new Vue({
+  el: '#app1',
+  data: data,
+  methods: {
+    show: function() {
+      this.showParagraph = true;
+      this.updateTitle('The VueJS Instance (Updated)');
+    },
+    updateTitle: function(title) {
+      this.title = title;
+    }
+  },
+  computed: {
+    lowercaseTitle: function() {
+      return this.title.toLowerCase();
+    }
+  },
+  watch: {
+    title: function(value) {
+      alert('Title changed, new value: ' + value);
+    }
+  }
+});
+
+var vm2 = new Vue({
+  el: '#app2',
+  data:{
+    title: 'The second instance'
+  },
+  methods: {
+    onChange: function(){
+      vm1.title = 'Changed!';
+    }
+  }
+});
+
+setTimeout(function(){
+  vm1.title = "Changed by timer!";
+  vm1.show();
+}, 2000);
+
+// This property will not be watched by VueJs because
+// it was not instantiated with the Vue() constructor.
+vm1.newProperty = 'New!';
+
+// native Vue members
+// $data - data block
+console.log(vm1.$data.title);
+console.log(vm1.$data === data);
+
+</script>
+</html>
+
