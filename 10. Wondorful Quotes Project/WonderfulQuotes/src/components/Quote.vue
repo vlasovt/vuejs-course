@@ -1,18 +1,8 @@
 <template>
     <div  class="well well-small">
-        {{quote}}
+        <slot></slot>
     </div>
 </template>
-
-<script>
-export default {
-    props:['quote'],
-    data() {
-        return {
-        }
-    }
-}
-</script>
 
 <style scoped>
     .well{

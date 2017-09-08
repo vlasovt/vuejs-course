@@ -3,12 +3,13 @@
         <label for="comment">Comment:</label>
         <textarea class="form-control" v-model="quote" rows="5" id="comment"></textarea>
         <div class="addButton">
-            <button class="btn btn-primary" @click="addQuote">Add Quote</button>
+            <button class="btn btn-primary" @click.prevent="addQuote">Add Quote</button>
         </div>
-        <app-quote v-for="quote in quotes" 
-                   :key="quote" 
-                   :quote="quote" 
-                   v-on:click.native="removeQuote(quote)"></app-quote>
+        <app-quote v-for="(quote, index) in quotes" 
+                   :key="index"
+                   v-on:click.native="removeQuote(index)">
+                   {{quote}}
+                   </app-quote>
     </div>
 </template>
 
@@ -25,19 +26,11 @@ export default {
     },
     methods:{
         addQuote(){
-
-            if(!this.quote){
-                return;
-            }
-
-            if(this.quotes.length < this.maxQuotes){
-                this.quotes.push(this.quote);
-            }else{
-                alert('You have reached the limit of '+ this.maxQuotes +' quotes. Please remove some items from the list before adding more.')
-            }
+            this.$emit('quoteAdded', this.quote);
+            this.quote = '';
         },
-        removeQuote(quote){
-            this.quotes.splice(this.quotes.indexOf(quote), 1);
+        removeQuote(index){
+            this.$emit('quoteRemoved', index);
         }
     },
     components:{

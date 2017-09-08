@@ -4,7 +4,8 @@
            :quotesAdded="quotes.length"        :maxQuotes="maxQuotes"></app-header>
         <app-quote-editor 
            :quotes="quotes" 
-           :maxQuotes="maxQuotes"></app-quote-editor>
+           @quoteAdded="addQuote"
+           @quoteRemoved="removeQuote"></app-quote-editor>
         <app-footer></app-footer>
     </div>
 </template>
@@ -27,6 +28,23 @@ import QuoteEditor from './components/QuoteEditor.vue'
             'app-footer': Footer,
             'app-header': Header,
             'app-quote-editor': QuoteEditor
+        },
+        methods:{
+              addQuote(quote){
+
+                if(!quote){
+                    return;
+                }
+
+                if(this.quotes.length >= this.maxQuotes){
+                     return alert('You have reached the limit of '+ this.maxQuotes +' quotes. Please remove some items from the list before adding more.');
+                }
+
+                 this.quotes.push(quote);
+            },
+            removeQuote(index){
+                this.quotes.splice(index, 1);
+            }
         }
     }
 </script>

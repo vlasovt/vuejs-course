@@ -3,7 +3,7 @@
         <h3>Quotes Added</h3>
         <div class="progress">
             <div class="progress-bar" :style="{width: progress}">
-                {{quotesAdded + '/' + maxQuotes}}
+                {{quotesAdded}} / {{maxQuotes}}
             </div>
         </div>
     </header>
