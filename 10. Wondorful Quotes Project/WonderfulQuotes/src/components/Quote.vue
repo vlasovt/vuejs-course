@@ -1,6 +1,6 @@
 <template>
-    <div class="well well-small">
-        {{quote}}bvbbb
+    <div  class="well well-small">
+        {{quote}}
     </div>
 </template>
 

@@ -1,7 +1,10 @@
 <template>
     <div class="container">
-        <app-header :quotesAdded="quotes.length" :maxQuotes="maxQuotes"></app-header>
-        <app-quote-editor :quotes="quotes"></app-quote-editor>
+        <app-header 
+           :quotesAdded="quotes.length"        :maxQuotes="maxQuotes"></app-header>
+        <app-quote-editor 
+           :quotes="quotes" 
+           :maxQuotes="maxQuotes"></app-quote-editor>
         <app-footer></app-footer>
     </div>
 </template>

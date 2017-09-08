@@ -8,7 +8,7 @@
         <app-quote v-for="quote in quotes" 
                    :key="quote" 
                    :quote="quote" 
-                   @click="removeQuote(quote)"></app-quote>
+                   v-on:click.native="removeQuote(quote)"></app-quote>
     </div>
 </template>
 
@@ -17,7 +17,7 @@ import Quote from './Quote.vue'
 
 export default {
     
-    props: ['quotes'],
+    props: ['quotes', 'maxQuotes'],
     data() {
         return {  
             quote:''
@@ -25,7 +25,16 @@ export default {
     },
     methods:{
         addQuote(){
-            this.quotes.push(this.quote);
+
+            if(!this.quote){
+                return;
+            }
+
+            if(this.quotes.length < this.maxQuotes){
+                this.quotes.push(this.quote);
+            }else{
+                alert('You have reached the limit of '+ this.maxQuotes +' quotes. Please remove some items from the list before adding more.')
+            }
         },
         removeQuote(quote){
             this.quotes.splice(this.quotes.indexOf(quote), 1);
