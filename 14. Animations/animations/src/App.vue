@@ -25,6 +25,25 @@
                  leave-active-class="animated shake">
                      <div class="alert alert-info" v-if="show">This is some info</div>
                 </transition>
+                <transition :name="animationType" mode="out-in">
+                     <div class="alert alert-info" v-if="show" key="info">This is some info</div>
+                     <div class="alert alert-warning" v-else key="warning">This is some Warning</div>
+                </transition>
+                <button class="btn btn-primary" @click="load = !load">Load / Remove Element</button>
+                <br><br>
+                <transition
+                  @before-enter="beforeEnter"
+                  @enter="enter"
+                  @after-enter="afterEnter"
+                  @enter-cancelled="enterCancelled"  
+                  
+                   @before-leave="beforeLeave"
+                   @leave="leave"
+                   @after-leave="afterLeave"
+                   @leave-cancelled="leaveCancelled" >
+                   
+                    <div style="width: 100px; height: 100px; background-color: lightgreen" v-if="load"></div>
+                </transition>
             </div>
         </div>
     </div>
@@ -35,8 +54,40 @@
         data() {
             return {
                 show: true,
-                animationType: 'fade'
+                animationType: 'fade',
+                load: true
             }
+        },
+        methods:{
+            beforeEnter(el){
+                console.log('before enter');
+            },
+            enter(el, done){
+                console.log('enter');
+                done();
+            },
+            afterEnter(el){
+                console.log('after-enter');
+            },
+            enterCancelled(el){
+                console.log('enter-cancelled');
+            },
+
+
+            beforeLeave(el){
+                console.log('before-leave');
+            },
+            leave(el, done){
+                console.log('leave');
+                done();
+            },
+            afterLeave(el){
+                console.log('after-leave');
+            },
+            leaveCancelled(el){
+                console.log('leave-cancelled');
+            }
+
         },
         computed:{
             buttonLabel(){
@@ -71,7 +122,7 @@
 
     .slide-enter-active{
         animation: slide-in 1s ease-out forwards;
-        transition: opacity 3s;
+        transition: opacity 1s;
     }
 
     .slide-leave{
