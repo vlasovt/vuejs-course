@@ -42,7 +42,7 @@
                     @after-leave="afterLeave"
                     @leave-cancelled="leaveCancelled" 
                     :css="false">
-                    
+                     
                     <div style="width: 300px; height: 100px; background-color: lightgreen" v-if="load"></div>
                 </transition>
             </div>
@@ -61,6 +61,7 @@
             }
         },
         methods:{
+            //animation hooks
             beforeEnter(el){
                 console.log('before enter');
                 this.elementWidth = 100;
