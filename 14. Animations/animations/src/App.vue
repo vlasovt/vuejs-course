@@ -45,19 +45,42 @@
                     
                     <div style="width: 300px; height: 100px; background-color: lightgreen" v-if="load"></div>
                 </transition>
+                <hr>
+                <button class="btn btn-primary" @click="selectedComponent === 'app-success-alert'? selectedComponent = 'app-danger-alert': selectedComponent = 'app-success-alert'">Toggle Components</button>
+                <br><br>
+                <transition name="fade" mode="out-in">
+                    <component :is="selectedComponent"></component>
+                </transition>
+                <br><br>
+                <button class="btn btn-primary" @click="addItem">Add Item</button>
+                <br><br>
+                <ul class="list-group">
+                    <transition-group name="slide">
+                        <li class="list-group-item" 
+                        @click="removeItem(index)" 
+                        v-for="(number, index) in numbers" 
+                        :key="number"
+                        style="cursor:pointer">{{number}}</li>
+                    </transition-group>
+                </ul>
             </div>
         </div>
     </div>
 </template>
 
 <script>
+import DangerAlert from './DangerAlert.vue';
+import SuccessAlert from './SuccessAlert.vue';
+
     export default {
         data() {
             return {
                 show: true,
                 animationType: 'fade',
                 load: true,
-                elementWidth: 100
+                elementWidth: 100,
+                selectedComponent: 'app-success-alert',
+                numbers: [1,2,3,4,5]
             }
         },
         methods:{
@@ -107,6 +130,14 @@
             },
             leaveCancelled(el){
                 console.log('leave-cancelled');
+            },
+
+            addItem(){
+                const pos = Math.floor(Math.random() * this.numbers.length);
+                this.numbers.splice(pos, 0, this.numbers.length + 1);
+            },
+            removeItem(index){
+                this.numbers.splice(index, 1);
             }
 
         },
@@ -114,6 +145,10 @@
             buttonLabel(){
                 return this.show? "Hide Info Alert": "Show Info Alert";
             }
+        },
+        components:{
+            'app-danger-alert': DangerAlert,
+            'app-success-alert': SuccessAlert
         }
     }
 </script>
@@ -151,9 +186,14 @@
     }
 
     .slide-leave-active{
-         animation: slide-out 1s ease-out forwards;
+          animation: slide-out 1s ease-out forwards;
           transition: opacity 1s;
           opacity: 0;
+          position: absolute;
+    }
+    
+    .slide-move{
+        transition: transform 1s;
     }
 
     @keyframes slide-in {
