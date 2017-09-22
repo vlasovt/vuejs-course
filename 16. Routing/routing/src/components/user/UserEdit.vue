@@ -4,7 +4,7 @@
     <p>Locale: {{$route.query.locale}}</p>
     <p>Analytics: {{$route.query.q}}</p>
     <hr>
-    <button class="btn btn-primary">Confirm</button>
+    <button class="btn btn-primary" @click="confirmed = true">Confirm</button>
     <div style="height: 700px"> </div>
     <p id="data">Some extra Data</p>
   </div>
@@ -12,6 +12,23 @@
 
 <script>
 export default {
-  props: ['id']
+  props: ['id'],
+  data(){
+    return {
+      confirmed: false
+    }
+  },
+  //leave route guard
+  beforeRouteLeave(to, from, next){
+    if(this.confirmed){
+      next();
+    }else{
+      if(confirm('Are you sure?')){
+        next();
+      }else{
+        next(false);
+      }
+    }
+  }
 }
 </script>
