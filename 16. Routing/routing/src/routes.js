@@ -17,10 +17,14 @@ export const routes = [
         {path:'', component: UserStart},
         // if prop is an object :'props: { newsletterPopup: false }'
         // a function can be applied to to change the value inamically: 'props: (route) => ({ query: route.query.q }) '
-        {path:':id', component: UserDetail, props: true,},
+        //beforeEnter: route guard on the route level
+        {path:':id', component: UserDetail, props: true, beforeEnter: (to, from, next) =>{
+            console.log('inside route setup');
+            next();
+        }},
         {path:':id/edit', component: UserEdit, props: true, name: 'userEdit'}
     ] },
     {path: '/redirect-me', redirect: '/user'},
     //catch-all route
     {path: '*', redirect: '/'}
-];
+]; 

@@ -20,6 +20,11 @@ export default {
           q: 100
         }, 
         hash: '#data'
+      },
+      //route guard on the component level
+      beforeRouteEnter(to, from, next){
+        console.log('before route enter');
+        next();
       }
     }
   }

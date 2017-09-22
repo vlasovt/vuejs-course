@@ -25,6 +25,12 @@ const router = new VueRouter({
   } 
 });
 
+//beforeEach: route guard on the general level
+router.beforeEach((to, from, next)=> {
+  console.log('global beforeEach');
+  next();
+});
+
 //register routes
 
 new Vue({
