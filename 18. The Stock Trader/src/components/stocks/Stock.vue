@@ -34,7 +34,7 @@ export default {
       const order ={
         stockId: this.stock.id,
         stockPrice: this.stock.price,
-        quantity: this.quantity
+        quantity: Number(this.quantity)
       };
 
       this.$store.dispatch('stocks/buyStock', order);

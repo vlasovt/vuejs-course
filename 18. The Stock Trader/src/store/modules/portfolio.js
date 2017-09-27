@@ -5,12 +5,12 @@ export default {
         stocks: []
     },
     getters: {
-        stockPortfolio: (state, getters) => {
+        stockPortfolio: (state, getters, rootState, rootGetters) => {
             return state.stocks.map(stock=>{
-                const record = getters.stocks.find(element => element.id === stock.id);
+                const record = rootState.stocks.stocks.find(element => element.id === stock.id);
 
                 return {
-                    id: stockId,
+                    id: stock.id,
                     quantity: stock.quantity,
                     name: record.name,
                     price: record.price

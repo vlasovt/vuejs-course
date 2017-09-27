@@ -9,8 +9,8 @@ import PortfolioStock from './Stock.vue'
 
 export default {
   computed:{
-    ...mapGetters('portfolio', {
-      stocks: 'stockPortfolio'
+    ...mapGetters({
+      stocks: 'portfolio/stockPortfolio'
     })
   },
   components:{
