@@ -11,6 +11,7 @@
             <router-link to="/portfolio" activeClass="active" tag="li"><a>Portfolio</a></router-link>
             <router-link to="/stocks" activeClass="active" tag="li"><a>Stocks</a></router-link>
           </ul>
+          <strong class="navbar-text navbar-right">Funds: {{funds}}</strong>
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#">End Day</a>
@@ -34,3 +35,13 @@
     </nav>
   </div>
 </template>
+
+<script>
+export default {
+  computed:{
+    funds(){
+      return this.$store.getters['portfolio/funds'];
+    }
+  }
+}
+</script>
